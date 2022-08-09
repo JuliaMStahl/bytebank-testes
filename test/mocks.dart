@@ -4,14 +4,17 @@ import 'package:bytebank/screens/contacts_list.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:bytebank/database/dao/contact_dao.dart';
 import 'package:mockito/mockito.dart';
-
 import 'matchers.dart';
 import 'mocks.mocks.dart';
 
+@GenerateMocks([ContactDao])
 void main() {
   testWidgets('Should save a contact', (tester) async {
     final mockContactDao = MockContactDao();
+
     when(mockContactDao.findAll()).thenAnswer((_) async => []);
     when(mockContactDao.save(any)).thenAnswer((_) async => 1);
 
@@ -39,16 +42,16 @@ void main() {
 
     final nameTextField = find.byWidgetPredicate((widget) {
       if(widget is TextField){
-        return widget.decoration?.labelText == 'Full name';
+        return widget.decoration!.labelText == 'Full name';
       }
       return false;
     });
     expect(nameTextField, findsOneWidget);
-    await tester.enterText(nameTextField, 'Alex');
+    await tester.enterText(nameTextField, 'Julia');
 
     final accountNumberTextField = find.byWidgetPredicate((widget) {
       if(widget is TextField){
-        return widget.decoration?.labelText == 'Account number';
+        return widget.decoration!.labelText == 'Account number';
       }
       return false;
     });
