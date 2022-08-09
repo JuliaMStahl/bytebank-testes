@@ -9,9 +9,20 @@ void main() {
     expect(mainImage, findsOneWidget);
   });
 
-  testWidgets('Should display the first feature when Dashboard is opened', (WidgetTester tester) async {
+  testWidgets('Should display the Transfer feature when Dashboard is opened', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Dashboard()));
-    final firstFeature = find.byType(FeatureItem);
-    expect(firstFeature, findsWidgets);
+    // busca com mais precisão e segurança
+    // o icon e o text afirmam que o widget encontrado é o transfer
+    final iconTransferFeatureItem = find.widgetWithIcon(FeatureItem, Icons.monetization_on);
+    expect(iconTransferFeatureItem, findsOneWidget);
+    final nameTransferFeatureItem = find.widgetWithText(FeatureItem, 'Transfer');
+    expect(nameTransferFeatureItem, findsOneWidget);
+  });
+  testWidgets('Should display the Trannsaction Feed feature when Dashboard is opened', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Dashboard()));
+    final iconTransactionFeedFeatureItem = find.widgetWithIcon(FeatureItem, Icons.description);
+    expect(iconTransactionFeedFeatureItem, findsOneWidget);
+    final nameTransactionFeedFeatureItem = find.widgetWithText(FeatureItem, 'Trannsaction Feed');
+    expect(nameTransactionFeedFeatureItem, findsOneWidget);
   });
 }
